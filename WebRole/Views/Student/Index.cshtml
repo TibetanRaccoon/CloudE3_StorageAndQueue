@@ -1,0 +1,53 @@
+﻿@model IEnumerable<StudentServiceData.Student>
+@{
+    ViewBag.Title = "Index";
+}
+<h2>
+    Index
+</h2>
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<p>
+    @Html.ActionLink("Clear all data", "ClearAllData")
+</p>
+<table>
+    <tr>
+        <th>
+            Index
+        </th>
+        <th>
+            Name
+        </th>
+        <th>
+            LastName
+        </th>
+        <th>
+            Photo
+        </th>
+        <th>
+        </th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.RowKey)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastName)
+            </td>
+            <td>
+                <img src="@item.ThumbnailUrl" />
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ })
+                @Html.ActionLink("Details", "Details", new { RowKey = item.RowKey })
+                @Html.ActionLink("Delete", "Delete", new { RowKey = item.RowKey })
+            </td>
+        </tr>
+    }
+</table>
