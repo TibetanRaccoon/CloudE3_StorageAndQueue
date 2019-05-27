@@ -48,8 +48,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BlobRepository.cs" />
-    <Compile Include="DataRepository.cs" />
+    <Compile Include="BlobHelper.cs" />
+    <Compile Include="TableHelper.cs" />
     <Compile Include="QueueHelper.cs" />
     <Compile Include="Student.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

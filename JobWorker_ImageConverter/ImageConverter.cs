@@ -7,14 +7,14 @@ namespace JobWorker_ImageConverter
 {
     public class ImageConverter
     {
-        DataRepository dataRepository;
-        BlobRepository blobRepository;
+        TableHelper dataRepository;
+        BlobHelper blobRepository;
         QueueHelper queue;
 
         public ImageConverter(string queueName)
         {
-            dataRepository = new DataRepository();
-            blobRepository = new BlobRepository();
+            dataRepository = new TableHelper("table");
+            blobRepository = new BlobHelper("blob");
             queue = new QueueHelper(queueName);
         }
 

@@ -7,15 +7,15 @@ using System.Linq;
 
 namespace StudentServiceData
 {
-    public class DataRepository
+    public class TableHelper
     {
         private CloudStorageAccount _storageAccount;
         private CloudTable _table;
-        public DataRepository()
+        public TableHelper(string tableName)
         {
             _storageAccount = CloudStorageAccount.Parse(CloudConfigurationManager.GetSetting("DataConnectionString"));
             CloudTableClient tableClient = new CloudTableClient(new Uri(_storageAccount.TableEndpoint.AbsoluteUri), _storageAccount.Credentials);
-            _table = tableClient.GetTableReference("students");
+            _table = tableClient.GetTableReference(tableName);
             if (_table.Exists() == false)
                 _table.Create();
         }
@@ -28,21 +28,21 @@ namespace StudentServiceData
             return results;
         }
 
-        public Student GetStudent(string index)
+        public Student GetStudent(string RowKey)
         {
             foreach (var item in RetrieveAllStudents())
             {
-                if (item.Index == index)
+                if (item.Index == RowKey)
                     return item;
             }
             return null;
         }
 
-        public bool Exists(string Index)
+        public bool Exists(string RowKey)
         {
             foreach (var item in RetrieveAllStudents())
             {
-                if (item.Index == Index)
+                if (item.Index == RowKey)
                     return true;
             }
             return false;

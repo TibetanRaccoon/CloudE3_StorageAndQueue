@@ -7,17 +7,17 @@ using System.IO;
 
 namespace StudentServiceData
 {
-    public class BlobRepository
+    public class BlobHelper
     {
         public CloudStorageAccount storageAccount;
         public CloudBlobClient blobStorage;
         public CloudBlobContainer container;
 
-        public BlobRepository()
+        public BlobHelper(string blobName)
         {
             storageAccount = CloudStorageAccount.Parse(CloudConfigurationManager.GetSetting("DataConnectionString"));
             blobStorage = storageAccount.CreateCloudBlobClient();
-            container = blobStorage.GetContainerReference("pic");
+            container = blobStorage.GetContainerReference(blobName);
             container.CreateIfNotExists();
 
             // Ovaj deo koda je neophodan da bi se slike prikazele u browser-u u vs2017 , 
@@ -81,6 +81,23 @@ namespace StudentServiceData
             }
 
             return new Bitmap(ms);
+        }
+
+        public string GetImageUrl(string RowKey)
+        {
+            var key = $"image_{RowKey}";
+            var blob = container.GetBlockBlobReference(key);
+            var ms = new MemoryStream();
+            try
+            {
+                blob.DownloadToStream(ms);
+            }
+            catch (System.Exception)
+            {
+                return null;
+            }
+
+            return blob.Uri.ToString();
         }
     }
 }

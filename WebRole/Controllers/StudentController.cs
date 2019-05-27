@@ -7,8 +7,8 @@ namespace WebRole.Controllers
 {
     public class StudentController : Controller
     {
-        DataRepository dataRepository = new DataRepository();
-        BlobRepository blobRepository = new BlobRepository();
+        TableHelper dataRepository = new TableHelper("table");
+        BlobHelper blobRepository = new BlobHelper("blob");
         QueueHelper queueHelper = new QueueHelper("queue");
 
         public ActionResult Index()

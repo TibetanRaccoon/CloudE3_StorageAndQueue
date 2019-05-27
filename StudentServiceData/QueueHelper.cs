@@ -29,7 +29,8 @@ namespace StudentServiceData
             var q = new CloudQueueMessage(msg);
 
             // TimeSpan parametar postavlja pri kreiranju poruku ucini nevidljivom 30 sekundi, ovo se trazilo u zadatku nije obavezno
-            queue.AddMessage(new CloudQueueMessage(msg), null, new TimeSpan(0, 0, 30), null);
+           // queue.AddMessage(new CloudQueueMessage(msg), null, new TimeSpan(0, 0, 30), null);
+            queue.AddMessage(new CloudQueueMessage(msg));
             Trace.WriteLine(msg);
         }
 
@@ -51,8 +52,8 @@ namespace StudentServiceData
 
                 Trace.WriteLine($"Processing message {msg.AsString}.");
                 // Brise poruku ako je procitana vise od 3 puta, koristiti samo ako se u trazi u zadatku
-                if (msg.DequeueCount == 3)
-                    RemoveMessage(msg);
+                // if (msg.DequeueCount == 3)
+                RemoveMessage(msg);
             }
 
             return msg;
